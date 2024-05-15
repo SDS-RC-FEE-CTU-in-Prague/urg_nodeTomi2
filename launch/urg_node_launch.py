@@ -9,9 +9,12 @@ from launch.actions import SetLaunchConfiguration
 from launch.substitutions import LaunchConfiguration
 
 from launch_ros.actions import Node
+from usb.core import find as finddev
 
 
 def generate_launch_description():
+    dev = finddev(idVendor=0x15d1)
+    dev.reset()
     urg_node_dir = get_package_share_directory('urg_node')
     launch_description = LaunchDescription([
         DeclareLaunchArgument(
